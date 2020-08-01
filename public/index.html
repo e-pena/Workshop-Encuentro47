@@ -4,18 +4,50 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
+		<link rel="stylesheet" href="./styles/style.css" />
 	</head>
 	<body>
-		<header>
-			<input type="text" placeholder="Apellido" />
+		<header id="header">
+			<div class="form-get">
+				<h1 class="form-get-titulo">Log in</h1>
+				<form name="get" id="form-login">
+					<input required name="apellido" id="get-apellido" type="text" placeholder="Apellido" />
 
-			<input type="text" placeholder="Nombre" />
+					<input required name="nombre" id="get-nombre" type="text" placeholder="Nombre" />
 
-			<input type="mail" placeholder="mail" />
+					<input required name="mail" id="get-mail" type="mail" placeholder="mail" />
 
-			<input type="password" placeholder="ingrese su contraseña" />
+					<input required name="contrasenia" id="get-contrasenia" type="password" placeholder="ingrese su contraseña" />
 
-			<button type="submit">INGRESAR</button>
+					<button id="btn-get-ingresar" type="button">INGRESAR</button>
+				</form>
+			</div>
+			<div id="login-fallido" class="oculto">
+				Alguno/s de los datos no coincide con nuestro registro. Intentelo nuevamente
+			</div>
+			<div class="form-post">
+				<h1 class="form-post-titulo">Sign in</h1>
+				<form name="post" id="form-signin" method="post">
+					<input required name="apellido" id="post-apellido" type="text" placeholder="Apellido" />
+
+					<input required name="nombre" id="post-nombre" type="text" placeholder="Nombre" />
+
+					<input required name="mail" id="post-mail" type="mail" placeholder="mail" />
+
+					<input
+						required
+						name="contrasenia"
+						id="post-contrasenia"
+						type="password"
+						placeholder="ingrese su contraseña"
+					/>
+
+					<button id="btn-post-registrar" type="submit">REGISTRARSE</button>
+				</form>
+			</div>
+			<div id="saludo-usuario" class="oculto"></div>
 		</header>
+
+		<script src="./src/script.js"></script>
 	</body>
 </html>
