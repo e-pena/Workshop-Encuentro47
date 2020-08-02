@@ -144,7 +144,7 @@ postBtn.addEventListener('click', (e) => {
 	logInFallido.classList.add('oculto');
 });
 
-function reconocerPaquete(ubicacionPaquete) {
+function reservarPaquete(ubicacionPaquete) {
 	try {
 		const response = fetch('http://127.0.0.1:3000/paquetes/')
 			.then((response) => {
@@ -158,7 +158,7 @@ function reconocerPaquete(ubicacionPaquete) {
 					pagoRealizado: false,
 					precio: paquete.precio,
 				};
-				reservarPaquete(paqueteReservado);
+				reservarOComprarPaquete(paqueteReservado);
 				return data;
 			});
 		return response;
@@ -167,11 +167,34 @@ function reconocerPaquete(ubicacionPaquete) {
 	}
 }
 
-function reservarPaquete(paqueteReservado) {
+function comprarPaquete(ubicacionPaquete) {
+	try {
+		const response = fetch('http://127.0.0.1:3000/paquetes/')
+			.then((response) => {
+				return response.json();
+			})
+			.then((data) => {
+				let paquete = data[ubicacionPaquete];
+				let paqueteReservado = {
+					idUsuario: idUsuarioActual,
+					idPaquete: paquete.id,
+					pagoRealizado: true,
+					precio: paquete.precio,
+				};
+				reservarOComprarPaquete(paqueteReservado);
+				return data;
+			});
+		return response;
+	} catch (error) {
+		return error;
+	}
+}
+
+function reservarOComprarPaquete(paquete) {
 	try {
 		fetch('http://127.0.0.1:3000/compras', {
 			method: 'POST',
-			body: JSON.stringify(paqueteReservado),
+			body: JSON.stringify(paquete),
 			headers: { 'Content-Type': 'application/json' },
 		})
 			.then((response) => {
@@ -188,7 +211,15 @@ function reservarPaquete(paqueteReservado) {
 for (let i = 0; i < btnReserva.length; i++) {
 	const element = btnReserva[i];
 	element.addEventListener('click', () => {
-		let paquete = reconocerPaquete(i);
+		let paquete = reservarPaquete(i);
+		return paquete;
+	});
+}
+
+for (let i = 0; i < btnCompra.length; i++) {
+	const element = btnCompra[i];
+	element.addEventListener('click', () => {
+		let paquete = comprarPaquete(i);
 		return paquete;
 	});
 }
