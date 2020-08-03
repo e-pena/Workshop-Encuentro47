@@ -21,6 +21,7 @@ const paqueteLugar = document.querySelectorAll('.lugar');
 const paquetePrecio = document.querySelectorAll('.precio');
 const paqueteFecha = document.querySelectorAll('.fecha');
 const paqueteImagen = document.querySelectorAll('.foto');
+const paqueteDiv = document.querySelectorAll('.mb-4');
 
 let idUsuarioActual;
 
@@ -38,9 +39,11 @@ function cargarPaquetes() {
 					paqueteFecha[i].innerText = `Fechas: ${element.fecha}`;
 					paqueteImagen[i].setAttribute('src', element.imagen);
 					paqueteImagen[i].setAttribute('alt', element.destino);
+					paqueteDiv[i].classList.remove('oculto');
 				}
 				return data;
 			});
+		return response;
 	} catch (error) {
 		return console.error(error);
 	}
@@ -67,6 +70,12 @@ function logIn(usuario) {
 						saludoUsuario.classList.remove('oculto');
 						logInFallido.classList.add('oculto');
 						idUsuarioActual = element.id;
+						btnCompra.forEach((element) => {
+							element.disabled = false;
+						});
+						btnReserva.forEach((element) => {
+							element.disabled = false;
+						});
 						return data;
 					}
 				}
@@ -93,6 +102,12 @@ function signIn(usuario) {
 			.then((data) => {
 				console.log(data);
 				idUsuarioActual = data.id;
+				btnCompra.forEach((element) => {
+					element.disabled = false;
+				});
+				btnReserva.forEach((element) => {
+					element.disabled = false;
+				});
 			});
 	} catch (error) {
 		return error;
@@ -211,15 +226,23 @@ function reservarOComprarPaquete(paquete) {
 for (let i = 0; i < btnReserva.length; i++) {
 	const element = btnReserva[i];
 	element.addEventListener('click', () => {
-		let paquete = reservarPaquete(i);
-		return paquete;
+		if (idUsuarioActual > 0) {
+			let paquete = reservarPaquete(i);
+			return paquete;
+		} else {
+			alert('Ingrese a su cuenta para realizar compras o reservas');
+		}
 	});
 }
 
 for (let i = 0; i < btnCompra.length; i++) {
 	const element = btnCompra[i];
 	element.addEventListener('click', () => {
-		let paquete = comprarPaquete(i);
-		return paquete;
+		if (idUsuarioActual > 0) {
+			let paquete = comprarPaquete(i);
+			return paquete;
+		} else {
+			alert('Ingrese a su cuenta para realizar compras o reservas');
+		}
 	});
 }
