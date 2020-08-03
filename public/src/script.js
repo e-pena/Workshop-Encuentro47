@@ -8,6 +8,7 @@ const postNombre = document.querySelector('#post-nombre');
 const postEmail = document.querySelector('#post-mail');
 const postContrasenia = document.querySelector('#post-contrasenia');
 const postBtn = document.querySelector('#btn-post-registrar');
+const paquetesBtn = document.querySelector('#btn-mis-paquetes');
 const getFormSeccion = document.querySelector('.form-get');
 const postFormSeccion = document.querySelector('.form-post');
 const areaDeIngreso = document.querySelector('#header');
@@ -70,6 +71,7 @@ function logIn(usuario) {
 						saludoUsuario.classList.remove('oculto');
 						logInFallido.classList.add('oculto');
 						idUsuarioActual = element.id;
+						paquetesBtn.disabled = false;
 						btnCompra.forEach((element) => {
 							element.disabled = false;
 						});
@@ -102,6 +104,7 @@ function signIn(usuario) {
 			.then((data) => {
 				console.log(data);
 				idUsuarioActual = data.id;
+				paquetesBtn.disabled = false;
 				btnCompra.forEach((element) => {
 					element.disabled = false;
 				});
@@ -151,12 +154,36 @@ postBtn.addEventListener('click', (e) => {
 	let apellido = postApellido.value;
 	let nombre = postNombre.value;
 	let email = postEmail.value;
-	let usuarioNuevo = new UsuarioNuevo(nombre, apellido, email);
-	console.log(usuarioNuevo);
-	signIn(usuarioNuevo);
-	saludoUsuario.innerText = `Bienvenido ${usuarioNuevo.nombre} ${usuarioNuevo.apellido}`;
-	saludoUsuario.classList.remove('oculto');
-	logInFallido.classList.add('oculto');
+	if (apellido && nombre && email) {
+		let usuarioNuevo = new UsuarioNuevo(nombre, apellido, email);
+		console.log(usuarioNuevo);
+		signIn(usuarioNuevo);
+		saludoUsuario.innerText = `Bienvenido ${usuarioNuevo.nombre} ${usuarioNuevo.apellido}`;
+		saludoUsuario.classList.remove('oculto');
+		logInFallido.classList.add('oculto');
+	}
+});
+
+paquetesBtn.addEventListener('click', (e) => {
+	e.preventDefault();
+	try {
+		const response = fetch(`http://127.0.0.1:3000/usuarios/${idUsuarioActual}/paquetes`)
+			.then((response) => {
+				return response.json();
+			})
+			.then((data) => {
+				for (let i = 0; i < data.length; i++) {
+					const element = data[i];
+					let paquetesComprados = document.createElement('div');
+					paquetesComprados.innerHTML = `Tiene un viaje a ${element.destino} de ${element.fecha} con un costo de $${element.precio}`;
+					areaDeIngreso.appendChild(paquetesComprados);
+				}
+				return data;
+			});
+		return response;
+	} catch (error) {
+		return error;
+	}
 });
 
 function reservarPaquete(ubicacionPaquete) {
