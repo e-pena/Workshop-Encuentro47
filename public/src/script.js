@@ -1,3 +1,5 @@
+// VARIABLES
+
 const getApellido = document.querySelector('#get-apellido');
 const getNombre = document.querySelector('#get-nombre');
 const getEmail = document.querySelector('#get-mail');
@@ -23,8 +25,11 @@ const paquetePrecio = document.querySelectorAll('.precio');
 const paqueteFecha = document.querySelectorAll('.fecha');
 const paqueteImagen = document.querySelectorAll('.foto');
 const paqueteDiv = document.querySelectorAll('.mb-4');
+const paquetesComprados = document.querySelector('#mis-paquetes-lista');
 
 let idUsuarioActual;
+
+// MOSTRAR PAQUETES DISPONIBLES
 
 function cargarPaquetes() {
 	try {
@@ -51,6 +56,8 @@ function cargarPaquetes() {
 }
 
 cargarPaquetes();
+
+// FUNCIÓN PARA LOGUEARSE
 
 function logIn(usuario) {
 	try {
@@ -91,6 +98,8 @@ function logIn(usuario) {
 	}
 }
 
+// FUNCIÓN PARA REGISTRARSE
+
 function signIn(usuario) {
 	try {
 		fetch('http://127.0.0.1:3000/usuarios/', {
@@ -117,6 +126,8 @@ function signIn(usuario) {
 	}
 }
 
+// CLASES NECESARIAS PARA EL REGISTRO Y LOGUEO
+
 class UsuarioRegistrado {
 	constructor(nombre, apellido, email) {
 		this.nombre = nombre;
@@ -138,6 +149,8 @@ class UsuarioNuevo {
 	apellido = '';
 	email = '';
 }
+
+// FUNCIONALIDAD DE BOTONES DE REGISTRO Y LOGUEO
 
 getBtn.addEventListener('click', (e) => {
 	e.preventDefault();
@@ -164,6 +177,8 @@ postBtn.addEventListener('click', (e) => {
 	}
 });
 
+// FUNCIONALIDAD PARA MOSTRAR LOS PAQUETES COMPRADOS POR EL USUARIO REGISTRADO
+
 paquetesBtn.addEventListener('click', (e) => {
 	e.preventDefault();
 	try {
@@ -172,11 +187,10 @@ paquetesBtn.addEventListener('click', (e) => {
 				return response.json();
 			})
 			.then((data) => {
+				paquetesComprados.innerHTML = '';
 				for (let i = 0; i < data.length; i++) {
 					const element = data[i];
-					let paquetesComprados = document.createElement('div');
-					paquetesComprados.innerHTML = `Tiene un viaje a ${element.destino} de ${element.fecha} con un costo de $${element.precio}`;
-					areaDeIngreso.appendChild(paquetesComprados);
+					paquetesComprados.innerHTML += `<p>Tiene un viaje a ${element.destino} de ${element.fecha} con un costo de $${element.precio}<p>`;
 				}
 				return data;
 			});
@@ -185,6 +199,8 @@ paquetesBtn.addEventListener('click', (e) => {
 		return error;
 	}
 });
+
+// FUNCIONES PARA RESERVAR O COMPRAR UN PAQUETE
 
 function reservarPaquete(ubicacionPaquete) {
 	try {
@@ -249,6 +265,8 @@ function reservarOComprarPaquete(paquete) {
 		return error;
 	}
 }
+
+// BOTONES PARA LA RESERVA O COMPRA DE UN PAQUETE
 
 for (let i = 0; i < btnReserva.length; i++) {
 	const element = btnReserva[i];

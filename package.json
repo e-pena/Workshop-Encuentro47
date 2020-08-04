@@ -15,5 +15,13 @@
     "nodemon": "^2.0.4"
   },
   "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/e-pena/Workshop-Encuentro47.git"
+  },
+  "bugs": {
+    "url": "https://github.com/e-pena/Workshop-Encuentro47/issues"
+  },
+  "homepage": "https://github.com/e-pena/Workshop-Encuentro47#readme",
   "description": ""
 }
