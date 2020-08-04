@@ -20,7 +20,7 @@
 			<table class="table table-striped">
 				<thead>
 					<tr>
-						<th scope="col">#</th>
+						<th scope="col">id</th>
 						<th scope="col">Destino</th>
 						<th scope="col">Fecha</th>
 						<th scope="col">Precio</th>
@@ -29,6 +29,16 @@
 				</thead>
 				<tbody id="tabla-paquetes"></tbody>
 			</table>
+			<div id="borrar-paquetes">
+				<h3>Eliminar paquetes</h3>
+				<form method="post">
+					<div class="form-group col-md-4">
+						<label for="id-paquete-borrado">Número identificador de paquete que desea eliminar</label>
+						<input required name="id-paquete-borrado" id="id-paquete-borrado" type="number" class="form-control" />
+					</div>
+					<button id="borrar-paquete-btn" type="button" class="btn btn-danger">Confirmar</button>
+				</form>
+			</div>
 		</section>
 
 		<section id="usuarios">
@@ -36,7 +46,7 @@
 			<table class="table table-striped">
 				<thead>
 					<tr>
-						<th scope="col">#</th>
+						<th scope="col">id</th>
 						<th scope="col">Apellido</th>
 						<th scope="col">Nombre</th>
 						<th scope="col">Email</th>
@@ -45,6 +55,16 @@
 				</thead>
 				<tbody id="tabla-usuarios"></tbody>
 			</table>
+			<div id="borrar-usuarios">
+				<h3>Eliminar usuarios</h3>
+				<form method="post">
+					<div class="form-group col-md-4">
+						<label for="id-usuario-borrado">Número identificador de usuario que desea eliminar</label>
+						<input required name="id-usuario-borrado" id="id-usuario-borrado" type="number" class="form-control" />
+					</div>
+					<button id="borrar-usuario-btn" type="button" class="btn btn-danger">Confirmar</button>
+				</form>
+			</div>
 		</section>
 
 		<section id="ventas">
@@ -52,7 +72,7 @@
 			<table class="table table-striped">
 				<thead>
 					<tr>
-						<th scope="col">#</th>
+						<th scope="col">id</th>
 						<th scope="col">Paquete</th>
 						<th scope="col">Comprador</th>
 						<th scope="col">Precio</th>
@@ -61,36 +81,46 @@
 				</thead>
 				<tbody id="tabla-ventas"></tbody>
 			</table>
+			<div id="borrar-operacion">
+				<h3>Eliminar operación</h3>
+				<form method="post">
+					<div class="form-group col-md-4">
+						<label for="id-operacion-borrado">Número identificador de operación que desea eliminar</label>
+						<input required name="id-operacion-borrado" id="id-operacion-borrado" type="number" class="form-control" />
+					</div>
+					<button id="borrar-operacion-btn" type="button" class="btn btn-danger">Confirmar</button>
+				</form>
+			</div>
 		</section>
 
 		<section id="agregar-paquete">
-            <h3>Crear nuevo paquete</h3>
-            <form id="form-agregar-paquete">
-                  <div class="form-group">
-                    <label for="post-destino">Destino</label>
-                    <input name="destino" type="text" class="form-control" id="post-destino">
-                  </div>
-                  <div class="form-row">
-                  <div class="form-group col-md-6">
-                    <label for="post-precio">Precio</label>
-                    <input name="precio" type="number" class="form-control" id="post-precio">
-                  </div>
-                <div class="form-group col-md-6">
-                  <label for="post-fecha">Fecha</label>
-                  <input name="fecha" type="text" class="form-control" id="post-fecha">
-                </div>
-                  </div>
-                <div class="form-group">
-                  <label for="post-imagen">Link de imagen</label>
-                  <input name="imagen" type="url" class="form-control" id="post-imagen">
-                </div>
-                </div>
-                <button id="post-btn" type="button" class="btn btn-primary">Confirmar</button>
-              </form>
+			<h3>Crear nuevo paquete</h3>
+			<form id="form-agregar-paquete">
+				<div class="form-group">
+					<label for="post-destino">Destino</label>
+					<input name="destino" type="text" class="form-control" id="post-destino" />
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label for="post-precio">Precio</label>
+						<input name="precio" type="number" class="form-control" id="post-precio" />
+					</div>
+					<div class="form-group col-md-6">
+						<label for="post-fecha">Fecha</label>
+						<input name="fecha" type="text" class="form-control" id="post-fecha" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="post-imagen">Link de imagen</label>
+					<input name="imagen" type="url" class="form-control" id="post-imagen" />
+				</div>
+				<button id="post-btn" type="button" class="btn btn-primary">Confirmar</button>
+			</form>
 		</section>
-        <a href="index.html">π</a>
-        
-        <script
+
+		<a href="index.html">π</a>
+
+		<script
 			src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 			integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
 			crossorigin="anonymous"

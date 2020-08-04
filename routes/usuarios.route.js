@@ -43,4 +43,14 @@ module.exports = function (server) {
 			res.status(409).json({ Error: err.message });
 		}
 	});
+
+	server.delete('/usuarios/:id', (req, res) => {
+		let idUsuarioABorrar = req.params.id;
+		try {
+			dataStore.borrarUsuarioPorId(idUsuarioABorrar);
+			res.status(200).send('Usuario borrado con éxito');
+		} catch (error) {
+			res.status(404).json({ Error: err.message });
+		}
+	});
 };

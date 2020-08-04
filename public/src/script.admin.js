@@ -7,6 +7,12 @@ const destinoPost = document.querySelector('#post-destino');
 const precioPost = document.querySelector('#post-precio');
 const fechaPost = document.querySelector('#post-fecha');
 const imagenPost = document.querySelector('#post-imagen');
+const idPaqueteABorrar = document.querySelector('#id-paquete-borrado');
+const btnEliminarPaquete = document.querySelector('#borrar-paquete-btn');
+const idUsuarioABorrar = document.querySelector('#id-usuario-borrado');
+const btnEliminarUsuario = document.querySelector('#borrar-usuario-btn');
+const idOperacionABorrar = document.querySelector('#id-operacion-borrado');
+const btnEliminarOperacion = document.querySelector('#borrar-operacion-btn');
 
 function cargarPaquetesDisponibles() {
 	try {
@@ -108,6 +114,75 @@ function crearNuevoPaquete(paquete) {
 		return error;
 	}
 }
+
+function eliminarPaquete(idPaquete) {
+	try {
+		fetch(`http://127.0.0.1:3000/paquetes/${idPaquete}`, {
+			method: 'DELETE',
+		})
+			.then((response) => {
+				return response.json();
+			})
+			.then((data) => {
+				console.log(data);
+			});
+	} catch (error) {
+		return error;
+	}
+}
+
+btnEliminarPaquete.addEventListener('click', (e) => {
+	e.preventDefault();
+	let idPaquete = idPaqueteABorrar.value;
+	eliminarPaquete(idPaquete);
+	alert('El paquete ha sido eliminado');
+});
+
+function eliminarUsuario(idUsuario) {
+	try {
+		fetch(`http://127.0.0.1:3000/usuarios/${idUsuario}`, {
+			method: 'DELETE',
+		})
+			.then((response) => {
+				return response.json();
+			})
+			.then((data) => {
+				console.log(data);
+			});
+	} catch (error) {
+		return error;
+	}
+}
+
+btnEliminarUsuario.addEventListener('click', (e) => {
+	e.preventDefault();
+	let idUsuario = idUsuarioABorrar.value;
+	eliminarUsuario(idUsuario);
+	alert('El usuario ha sido eliminado');
+});
+
+function eliminarOperacion(idOperacion) {
+	try {
+		fetch(`http://127.0.0.1:3000/compras/${idOperacion}`, {
+			method: 'DELETE',
+		})
+			.then((response) => {
+				return response.json();
+			})
+			.then((data) => {
+				console.log(data);
+			});
+	} catch (error) {
+		return error;
+	}
+}
+
+btnEliminarOperacion.addEventListener('click', (e) => {
+	e.preventDefault();
+	let idOperacion = idOperacionABorrar.value;
+	eliminarOperacion(idOperacion);
+	alert('La operación ha sido eliminada');
+});
 
 class PaqueteNuevo {
 	constructor(destino, precio, fecha, imagen) {

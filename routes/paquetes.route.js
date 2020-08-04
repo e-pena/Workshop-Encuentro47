@@ -26,4 +26,14 @@ module.exports = function (server) {
 			res.status(409).json({ Error: err.message });
 		}
 	});
+
+	server.delete('/paquetes/:id', (req, res) => {
+		let idPaqueteABorrar = req.params.id;
+		try {
+			dataStore.borrarPaquetePorId(idPaqueteABorrar);
+			res.status(200).send('Paquete borrado con éxito');
+		} catch (error) {
+			res.status(404).json({ Error: err.message });
+		}
+	});
 };

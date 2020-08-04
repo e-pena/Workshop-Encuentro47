@@ -28,4 +28,14 @@ module.exports = function (server) {
 			res.status(409).json({ Error: err.message });
 		}
 	});
+
+	server.delete('/compras/:id', (req, res) => {
+		let idCompraABorrar = req.params.id;
+		try {
+			dataStore.borrarCompraPorId(idCompraABorrar);
+			res.status(200).send('Operación borrada con éxito');
+		} catch (error) {
+			res.status(404).json({ Error: err.message });
+		}
+	});
 };

@@ -268,4 +268,35 @@ function agregarCompra(compra) {
 	return nuevaCompra;
 }
 
-module.exports = { paquetes, usuarios, usuarioPaqueteComprado, crearNuevoPaquete, agregarUsuario, agregarCompra };
+function borrarPaquetePorId(idPaqueteABorrar) {
+	let paqueteABorrar = paquetes.find((r) => r.id == Number(idPaqueteABorrar));
+	let ubicacion = paquetes.indexOf(paqueteABorrar);
+	this.paquetes.splice(ubicacion, 1);
+	return paqueteABorrar;
+}
+
+function borrarUsuarioPorId(idUsuarioABorrar) {
+	let usuarioABorrar = usuarios.find((r) => r.id == Number(idUsuarioABorrar));
+	let ubicacion = usuarios.indexOf(usuarioABorrar);
+	this.usuarios.splice(ubicacion, 1);
+	return usuarioABorrar;
+}
+
+function borrarCompraPorId(idcompraABorrar) {
+	let compraABorrar = usuarioPaqueteComprado.find((r) => r.id == Number(idcompraABorrar));
+	let ubicacion = usuarioPaqueteComprado.indexOf(compraABorrar);
+	this.usuarioPaqueteComprado.splice(ubicacion, 1);
+	return compraABorrar;
+}
+
+module.exports = {
+	paquetes,
+	usuarios,
+	usuarioPaqueteComprado,
+	crearNuevoPaquete,
+	agregarUsuario,
+	agregarCompra,
+	borrarPaquetePorId,
+	borrarUsuarioPorId,
+	borrarCompraPorId,
+};
