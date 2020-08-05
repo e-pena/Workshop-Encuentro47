@@ -15,41 +15,31 @@
 	<body>
 		<header id="header">
 			<h1 class="titulo-pagina">DESPEGAR-TE</h1>
-			<div class="form-get">
-				<h3 class="form-get-titulo">Log in</h3>
-				<form name="get" id="form-login">
-					<input required name="apellido" id="get-apellido" type="text" placeholder="Apellido" />
+			<div class="form-login">
+				<h3 class="form-login-titulo">Log in</h3>
+				<form name="login" id="form-login">
+					<input required name="mail" id="login-mail" type="mail" placeholder="mail" />
 
-					<input required name="nombre" id="get-nombre" type="text" placeholder="Nombre" />
+					<input required name="contrasenia" id="login-contrasenia" type="text" placeholder="ingrese su contraseña" />
 
-					<input required name="mail" id="get-mail" type="mail" placeholder="mail" />
-
-					<input required name="contrasenia" id="get-contrasenia" type="password" placeholder="ingrese su contraseña" />
-
-					<button id="btn-get-ingresar" type="button">INGRESAR</button>
+					<button id="btn-login-ingresar" type="button">INGRESAR</button>
 				</form>
 			</div>
 			<div id="login-fallido" class="oculto">
 				Alguno/s de los datos no coincide con nuestro registro. Intentelo nuevamente
 			</div>
-			<div class="form-post">
-				<h3 class="form-post-titulo">Sign in</h3>
-				<form name="post" id="form-signin" method="post">
-					<input required name="apellido" id="post-apellido" type="text" placeholder="Apellido" />
+			<div class="form-signin">
+				<h3 class="form-signin-titulo">Sign in</h3>
+				<form name="form-signin" id="form-signin" method="form-signin">
+					<input required name="apellido" id="signin-apellido" type="text" placeholder="Apellido" />
 
-					<input required name="nombre" id="post-nombre" type="text" placeholder="Nombre" />
+					<input required name="nombre" id="signin-nombre" type="text" placeholder="Nombre" />
 
-					<input required name="mail" id="post-mail" type="mail" placeholder="mail" />
+					<input required name="mail" id="signin-mail" type="mail" placeholder="mail" />
 
-					<input
-						required
-						name="contrasenia"
-						id="post-contrasenia"
-						type="password"
-						placeholder="ingrese su contraseña"
-					/>
+					<input required name="contrasenia" id="signin-contrasenia" type="text" placeholder="ingrese su contraseña" />
 
-					<button id="btn-post-registrar" type="submit">REGISTRARSE</button>
+					<button id="btn-signin-registrar" type="submit">REGISTRARSE</button>
 				</form>
 			</div>
 			<div id="saludo-usuario" class="oculto"></div>

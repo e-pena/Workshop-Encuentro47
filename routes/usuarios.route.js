@@ -44,6 +44,22 @@ module.exports = function (server) {
 		}
 	});
 
+	server.post('/usuarios/login', (req, res) => {
+		let usuario = dataStore.usuarios.find((r) => r.email == req.body.email);
+		if (usuario == null) {
+			return res.status(400).send('No se encontró el usuario');
+		}
+		try {
+			if (usuario.contrasenia == req.body.contrasenia) {
+				res.status(200).send(usuario);
+			} else {
+				res.status(400).send('Contraseña inválida');
+			}
+		} catch (err) {
+			res.status(400).json({ Error: err.message });
+		}
+	});
+
 	server.delete('/usuarios/:id', (req, res) => {
 		let idUsuarioABorrar = req.params.id;
 		try {
