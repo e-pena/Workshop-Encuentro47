@@ -67,16 +67,16 @@ function logIn(usuario) {
 			headers: { 'Content-Type': 'application/json' },
 		})
 			.then((response) => {
-				console.log(response.headers);
 				return response.json();
 			})
 			.then((data) => {
 				console.log(data);
 				if (data) {
-					saludoUsuario.innerText = `Bienvenido de nuevo ${data.nombre} ${data.apellido}`;
+					localStorage.setItem('token', data.token);
+					saludoUsuario.innerText = `Bienvenido de nuevo ${data.usuarioExistente.nombre} ${data.usuarioExistente.apellido}`;
 					saludoUsuario.classList.remove('oculto');
 					logInFallido.classList.add('oculto');
-					idUsuarioActual = data.id;
+					idUsuarioActual = data.usuarioExistente.id;
 					paquetesBtn.disabled = false;
 					btnCompra.forEach((element) => {
 						element.disabled = false;
@@ -170,7 +170,7 @@ signinBtn.addEventListener('click', (e) => {
 		let usuarioNuevo = new UsuarioNuevo(nombre, apellido, email, contrasenia);
 		console.log(usuarioNuevo);
 		signIn(usuarioNuevo);
-		saludoUsuario.innerText = `Bienvenido ${usuarioNuevo.nombre} ${usuarioNuevo.apellido}`;
+		saludoUsuario.innerText = `Registro exitoso. Por favor, realice el log in`;
 		saludoUsuario.classList.remove('oculto');
 		logInFallido.classList.add('oculto');
 	}

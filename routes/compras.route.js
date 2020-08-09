@@ -2,6 +2,7 @@ const dataStore = require('../db/datastore');
 const usuariosService = require('../services/usuarios.services');
 const paquetesService = require('../services/paquetes.services');
 const adminService = require('../services/admin.services');
+const authToken = require('../middlewares/auth.token');
 
 module.exports = function (server) {
 	server.get('/compras', (req, res) => {
@@ -19,7 +20,7 @@ module.exports = function (server) {
 		}
 	});
 
-	server.post('/compras', (req, res) => {
+	server.post('/compras', authToken.verificarTokenAdmin, (req, res) => {
 		let compraNueva = req.body;
 		try {
 			let compra = dataStore.agregarCompra(compraNueva);
@@ -29,7 +30,7 @@ module.exports = function (server) {
 		}
 	});
 
-	server.delete('/compras/:id', (req, res) => {
+	server.delete('/compras/:id', authToken.verificarTokenAdmin, (req, res) => {
 		let idCompraABorrar = req.params.id;
 		try {
 			dataStore.borrarCompraPorId(idCompraABorrar);

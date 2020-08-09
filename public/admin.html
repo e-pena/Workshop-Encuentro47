@@ -15,109 +15,131 @@
 	<body>
 		<a href="index.html">A la página de usuarios</a>
 		<h1>PÁGINA DE ADMINISTRACIÓN DE DESPEGAR-TE</h1>
+		<div class="form-login">
+			<h3 class="form-login-titulo">Log in</h3>
+			<form name="login" id="form-login">
+				<input required name="mail" id="login-mail" type="mail" placeholder="mail" />
 
-		<section id="paquetes">
-			<h3>Paquetes disponibles</h3>
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th scope="col">id</th>
-						<th scope="col">Destino</th>
-						<th scope="col">Fecha</th>
-						<th scope="col">Precio</th>
-						<th scope="col">Cantidad de ventas</th>
-					</tr>
-				</thead>
-				<tbody id="tabla-paquetes"></tbody>
-			</table>
-			<div id="borrar-paquetes">
-				<h3>Eliminar paquetes</h3>
-				<form method="post">
-					<div class="form-group col-md-4">
-						<label for="id-paquete-borrado">Número identificador de paquete que desea eliminar</label>
-						<input required name="id-paquete-borrado" id="id-paquete-borrado" type="number" class="form-control" />
-					</div>
-					<button id="borrar-paquete-btn" type="button" class="btn btn-danger">Confirmar</button>
-				</form>
-			</div>
-		</section>
+				<input required name="contrasenia" id="login-contrasenia" type="password" placeholder="ingrese su contraseña" />
 
-		<section id="usuarios">
-			<h3>Usuarios registrados</h3>
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th scope="col">id</th>
-						<th scope="col">Apellido</th>
-						<th scope="col">Nombre</th>
-						<th scope="col">Email</th>
-						<th scope="col">Cantidad de compras</th>
-					</tr>
-				</thead>
-				<tbody id="tabla-usuarios"></tbody>
-			</table>
-			<div id="borrar-usuarios">
-				<h3>Eliminar usuarios</h3>
-				<form method="post">
-					<div class="form-group col-md-4">
-						<label for="id-usuario-borrado">Número identificador de usuario que desea eliminar</label>
-						<input required name="id-usuario-borrado" id="id-usuario-borrado" type="number" class="form-control" />
-					</div>
-					<button id="borrar-usuario-btn" type="button" class="btn btn-danger">Confirmar</button>
-				</form>
-			</div>
-		</section>
-
-		<section id="ventas">
-			<h3>Ventas realizadas</h3>
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th scope="col">id</th>
-						<th scope="col">Paquete</th>
-						<th scope="col">Comprador</th>
-						<th scope="col">Precio</th>
-						<th scope="col">Pago</th>
-					</tr>
-				</thead>
-				<tbody id="tabla-ventas"></tbody>
-			</table>
-			<div id="borrar-operacion">
-				<h3>Eliminar operación</h3>
-				<form method="post">
-					<div class="form-group col-md-4">
-						<label for="id-operacion-borrado">Número identificador de operación que desea eliminar</label>
-						<input required name="id-operacion-borrado" id="id-operacion-borrado" type="number" class="form-control" />
-					</div>
-					<button id="borrar-operacion-btn" type="button" class="btn btn-danger">Confirmar</button>
-				</form>
-			</div>
-		</section>
-
-		<section id="agregar-paquete">
-			<h3>Crear nuevo paquete</h3>
-			<form id="form-agregar-paquete">
-				<div class="form-group">
-					<label for="post-destino">Destino</label>
-					<input name="destino" type="text" class="form-control" id="post-destino" />
-				</div>
-				<div class="form-row">
-					<div class="form-group col-md-6">
-						<label for="post-precio">Precio</label>
-						<input name="precio" type="number" class="form-control" id="post-precio" />
-					</div>
-					<div class="form-group col-md-6">
-						<label for="post-fecha">Fecha</label>
-						<input name="fecha" type="text" class="form-control" id="post-fecha" />
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="post-imagen">Link de imagen</label>
-					<input name="imagen" type="url" class="form-control" id="post-imagen" />
-				</div>
-				<button id="post-btn" type="button" class="btn btn-primary">Confirmar</button>
+				<button id="btn-login-ingresar" type="button">INGRESAR</button>
 			</form>
-		</section>
+		</div>
+		<div id="login-fallido" class="oculto">
+			Alguno/s de los datos no coincide con nuestro registro. Intentelo nuevamente
+		</div>
+		<h6>Entrar con mimail1@mail.com, contraseña 1234</h6>
+		<div id="saludo-usuario" class="oculto"></div>
+		<div id="datos-admin" class="oculto">
+			<section id="paquetes">
+				<h3>Paquetes disponibles</h3>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th scope="col">id</th>
+							<th scope="col">Destino</th>
+							<th scope="col">Fecha</th>
+							<th scope="col">Precio</th>
+							<th scope="col">Cantidad de ventas</th>
+						</tr>
+					</thead>
+					<tbody id="tabla-paquetes"></tbody>
+				</table>
+				<div id="borrar-paquetes">
+					<h3>Eliminar paquetes</h3>
+					<form method="post">
+						<div class="form-group col-md-4">
+							<label for="id-paquete-borrado">Número identificador de paquete que desea eliminar</label>
+							<input required name="id-paquete-borrado" id="id-paquete-borrado" type="number" class="form-control" />
+						</div>
+						<button id="borrar-paquete-btn" type="button" class="btn btn-danger">Confirmar</button>
+					</form>
+				</div>
+			</section>
+
+			<section id="usuarios">
+				<h3>Usuarios registrados</h3>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th scope="col">id</th>
+							<th scope="col">Apellido</th>
+							<th scope="col">Nombre</th>
+							<th scope="col">Email</th>
+							<th scope="col">Cantidad de compras</th>
+						</tr>
+					</thead>
+					<tbody id="tabla-usuarios"></tbody>
+				</table>
+				<div id="borrar-usuarios">
+					<h3>Eliminar usuarios</h3>
+					<form method="post">
+						<div class="form-group col-md-4">
+							<label for="id-usuario-borrado">Número identificador de usuario que desea eliminar</label>
+							<input required name="id-usuario-borrado" id="id-usuario-borrado" type="number" class="form-control" />
+						</div>
+						<button id="borrar-usuario-btn" type="button" class="btn btn-danger">Confirmar</button>
+					</form>
+				</div>
+			</section>
+
+			<section id="ventas">
+				<h3>Ventas realizadas</h3>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th scope="col">id</th>
+							<th scope="col">Paquete</th>
+							<th scope="col">Comprador</th>
+							<th scope="col">Precio</th>
+							<th scope="col">Pago</th>
+						</tr>
+					</thead>
+					<tbody id="tabla-ventas"></tbody>
+				</table>
+				<div id="borrar-operacion">
+					<h3>Eliminar operación</h3>
+					<form method="post">
+						<div class="form-group col-md-4">
+							<label for="id-operacion-borrado">Número identificador de operación que desea eliminar</label>
+							<input
+								required
+								name="id-operacion-borrado"
+								id="id-operacion-borrado"
+								type="number"
+								class="form-control"
+							/>
+						</div>
+						<button id="borrar-operacion-btn" type="button" class="btn btn-danger">Confirmar</button>
+					</form>
+				</div>
+			</section>
+
+			<section id="agregar-paquete">
+				<h3>Crear nuevo paquete</h3>
+				<form id="form-agregar-paquete">
+					<div class="form-group">
+						<label for="post-destino">Destino</label>
+						<input name="destino" type="text" class="form-control" id="post-destino" />
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label for="post-precio">Precio</label>
+							<input name="precio" type="number" class="form-control" id="post-precio" />
+						</div>
+						<div class="form-group col-md-6">
+							<label for="post-fecha">Fecha</label>
+							<input name="fecha" type="text" class="form-control" id="post-fecha" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="post-imagen">Link de imagen</label>
+						<input name="imagen" type="url" class="form-control" id="post-imagen" />
+					</div>
+					<button id="post-btn" type="button" class="btn btn-primary">Confirmar</button>
+				</form>
+			</section>
+		</div>
 
 		<script
 			src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

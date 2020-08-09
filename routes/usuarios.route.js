@@ -1,6 +1,9 @@
 const usuariosService = require('../services/usuarios.services');
 const paquetesService = require('../services/paquetes.services');
 const dataStore = require('../db/datastore');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const authToken = require('../middlewares/auth.token');
 
 module.exports = function (server) {
 	server.get('/usuarios', (req, res) => {
@@ -45,22 +48,40 @@ module.exports = function (server) {
 	});
 
 	server.post('/usuarios/login', (req, res) => {
-		let usuario = dataStore.usuarios.find((r) => r.email == req.body.email);
-		if (usuario == null) {
-			return res.status(400).send('No se encontró el usuario');
-		}
-		try {
-			if (usuario.contrasenia == req.body.contrasenia) {
-				res.status(200).send(usuario);
-			} else {
-				res.status(400).send('Contraseña inválida');
-			}
-		} catch (err) {
-			res.status(400).json({ Error: err.message });
+		let email = req.body.email;
+		let contrasenia = req.body.contrasenia;
+		let usuarioExistente = dataStore.usuarios.find((r) => r.email == email);
+		if (!usuarioExistente) {
+			throw new Error('No se puede validar');
+		} else {
+			bcrypt
+				.compare(contrasenia, usuarioExistente.contrasenia)
+				.then((match) => {
+					if (match) {
+						let payload = {
+							email: usuarioExistente.email,
+							nombre: usuarioExistente.nombre,
+							apellido: usuarioExistente.apellido,
+							roles: usuarioExistente.roles,
+						};
+						jwt.sign(payload, authToken.claveSecreta, function (error, token) {
+							if (error) {
+								res.status(500).send({ Error: message.error });
+							} else {
+								res.status(200).send({ usuarioExistente, token });
+							}
+						});
+					} else {
+						return res.status(200).send({ message: 'Contraseña incorrecta' });
+					}
+				})
+				.catch((error) => {
+					return res.status(404).send({ error });
+				});
 		}
 	});
 
-	server.delete('/usuarios/:id', (req, res) => {
+	server.delete('/usuarios/:id', authToken.verificarTokenAdmin, (req, res) => {
 		let idUsuarioABorrar = req.params.id;
 		try {
 			dataStore.borrarUsuarioPorId(idUsuarioABorrar);

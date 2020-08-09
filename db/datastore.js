@@ -1,3 +1,5 @@
+let bcrypt = require('bcrypt');
+
 let paquetes = [
 	{
 		id: 1,
@@ -56,7 +58,7 @@ let paquetes = [
 		precio: 5000,
 		fecha: '10-08-2021 a 20-08-2021',
 		imagen:
-			'https://86087-590828-raikfcquaxqncofqfm.stackpathdns.com/wp-content/uploads/2016/01/paris-fin-de-semana-1024x683.jpeg',
+			'https://www.istitutomarangoni.com/wp-content/uploads/2017/03/xPARIS_1600X900.jpg.pagespeed.ic.2isBOUQuOg.webp',
 		compradores: [],
 	},
 	{
@@ -103,7 +105,7 @@ let usuarios = [
 		email: 'mimail1@mail.com',
 		contrasenia: '1234',
 		idDePaquetesComprados: [1],
-		admin: true,
+		roles: ['admin', 'usuario'],
 	},
 	{
 		id: 2,
@@ -112,7 +114,7 @@ let usuarios = [
 		email: 'mimail2@mail.com',
 		contrasenia: '1234',
 		idDePaquetesComprados: [1],
-		admin: false,
+		roles: ['usuario'],
 	},
 	{
 		id: 3,
@@ -121,7 +123,7 @@ let usuarios = [
 		email: 'mimail3@mail.com',
 		contrasenia: '1234',
 		idDePaquetesComprados: [4],
-		admin: false,
+		roles: ['usuario'],
 	},
 	{
 		id: 4,
@@ -130,7 +132,7 @@ let usuarios = [
 		email: 'mimail4@mail.com',
 		contrasenia: '1234',
 		idDePaquetesComprados: [4],
-		admin: false,
+		roles: ['usuario'],
 	},
 	{
 		id: 5,
@@ -139,7 +141,7 @@ let usuarios = [
 		email: 'mimail5@mail.com',
 		contrasenia: '1234',
 		idDePaquetesComprados: [],
-		admin: false,
+		roles: ['usuario'],
 	},
 	{
 		id: 6,
@@ -148,7 +150,7 @@ let usuarios = [
 		email: 'mimail6@mail.com',
 		contrasenia: '1234',
 		idDePaquetesComprados: [],
-		admin: false,
+		roles: ['usuario'],
 	},
 	{
 		id: 7,
@@ -157,7 +159,7 @@ let usuarios = [
 		email: 'mimail7@mail.com',
 		contrasenia: '1234',
 		idDePaquetesComprados: [],
-		admin: false,
+		roles: ['usuario'],
 	},
 	{
 		id: 8,
@@ -166,7 +168,7 @@ let usuarios = [
 		email: 'mimail8@mail.com',
 		contrasenia: '1234',
 		idDePaquetesComprados: [],
-		admin: false,
+		roles: ['usuario'],
 	},
 	{
 		id: 9,
@@ -175,7 +177,7 @@ let usuarios = [
 		email: 'mimail9@mail.com',
 		contrasenia: '1234',
 		idDePaquetesComprados: [],
-		admin: false,
+		roles: ['usuario'],
 	},
 ];
 
@@ -209,6 +211,19 @@ let usuarioPaqueteComprado = [
 		precio: 5000,
 	},
 ];
+
+function encriptarPassword() {
+	usuarios.map((element) =>
+		bcrypt.genSalt(10).then((salts) => {
+			bcrypt.hash(element.contrasenia, salts).then((hash) => {
+				element.contrasenia = hash;
+				return element;
+			});
+		})
+	);
+}
+
+encriptarPassword();
 
 function obtenerUltimoIdPaquetes() {
 	let data = paquetes.length;
@@ -258,8 +273,19 @@ function agregarUsuario(usuario) {
 	let nuevoUsuario = usuario;
 	nuevoUsuario.id = obtenerUltimoIdUsuarios();
 	nuevoUsuario.idDePaquetesComprados = [];
-	usuarios.push(nuevoUsuario);
-	return nuevoUsuario;
+	nuevoUsuario.roles = ['usuario'];
+	bcrypt.genSalt(10).then((salts) => {
+		bcrypt
+			.hash(nuevoUsuario.contrasenia, salts)
+			.then((hash) => {
+				nuevoUsuario.contrasenia = hash;
+				usuarios.push(nuevoUsuario);
+				return nuevoUsuario;
+			})
+			.catch((error) => {
+				console.log(error.message);
+			});
+	});
 }
 
 function agregarCompra(compra) {

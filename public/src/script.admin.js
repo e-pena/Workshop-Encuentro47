@@ -14,6 +14,67 @@ const btnEliminarUsuario = document.querySelector('#borrar-usuario-btn');
 const idOperacionABorrar = document.querySelector('#id-operacion-borrado');
 const btnEliminarOperacion = document.querySelector('#borrar-operacion-btn');
 
+const loginApellido = document.querySelector('#login-apellido');
+const loginNombre = document.querySelector('#login-nombre');
+const loginEmail = document.querySelector('#login-mail');
+const loginContrasenia = document.querySelector('#login-contrasenia');
+const loginBtn = document.querySelector('#btn-login-ingresar');
+const loginFormSeccion = document.querySelector('.form-login');
+const formularioLogIn = document.querySelector('#form-login');
+const saludoUsuario = document.querySelector('#saludo-usuario');
+const logInFallido = document.querySelector('#login-fallido');
+const datosParaAdmin = document.querySelector('#datos-admin');
+
+let token = `Bearer ${localStorage.getItem('token')}`;
+
+function logIn(usuario) {
+	try {
+		fetch('http://127.0.0.1:3000/usuarios/login/', {
+			method: 'POST',
+			body: JSON.stringify(usuario),
+			headers: { 'Content-Type': 'application/json' },
+		})
+			.then((response) => {
+				return response.json();
+			})
+			.then((data) => {
+				if (data.usuarioExistente.roles.length > 1) {
+					localStorage.setItem('token', data.token);
+					saludoUsuario.innerText = `Bienvenido de nuevo ${data.usuarioExistente.nombre} ${data.usuarioExistente.apellido}`;
+					saludoUsuario.classList.remove('oculto');
+					logInFallido.classList.add('oculto');
+					datosParaAdmin.classList.remove('oculto');
+					return data;
+				} else {
+					saludoUsuario.classList.add('oculto');
+					logInFallido.classList.remove('oculto');
+				}
+				return data;
+			});
+		return response;
+	} catch (error) {
+		return error;
+	}
+}
+
+class UsuarioRegistrado {
+	constructor(email, contrasenia) {
+		this.email = email;
+		this.contrasenia = contrasenia;
+	}
+	email = '';
+	contrasenia = '';
+}
+
+loginBtn.addEventListener('click', (e) => {
+	e.preventDefault();
+	let email = loginEmail.value;
+	let contrasenia = loginContrasenia.value;
+	let usuarioExistente = new UsuarioRegistrado(email, contrasenia);
+	console.log(usuarioExistente);
+	logIn(usuarioExistente);
+});
+
 function cargarPaquetesDisponibles() {
 	try {
 		const response = fetch('http://127.0.0.1:3000/paquetes/')
@@ -102,7 +163,7 @@ function crearNuevoPaquete(paquete) {
 		fetch('http://127.0.0.1:3000/paquetes/', {
 			method: 'POST',
 			body: JSON.stringify(paquete),
-			headers: { 'Content-Type': 'application/json' },
+			headers: { 'Content-Type': 'application/json', Authorization: token },
 		})
 			.then((response) => {
 				return response.json();
@@ -119,6 +180,7 @@ function eliminarPaquete(idPaquete) {
 	try {
 		fetch(`http://127.0.0.1:3000/paquetes/${idPaquete}`, {
 			method: 'DELETE',
+			headers: { Authorization: token },
 		})
 			.then((response) => {
 				return response.json();
@@ -142,6 +204,7 @@ function eliminarUsuario(idUsuario) {
 	try {
 		fetch(`http://127.0.0.1:3000/usuarios/${idUsuario}`, {
 			method: 'DELETE',
+			headers: { Authorization: token },
 		})
 			.then((response) => {
 				return response.json();
@@ -165,6 +228,7 @@ function eliminarOperacion(idOperacion) {
 	try {
 		fetch(`http://127.0.0.1:3000/compras/${idOperacion}`, {
 			method: 'DELETE',
+			headers: { Authorization: token },
 		})
 			.then((response) => {
 				return response.json();
