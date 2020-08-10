@@ -10,7 +10,7 @@ Se utiliza:
 - Node.js
 - Express
 - Nodemon
-- Jason Web Token
+- Json Web Token
 - Bcrypt
 
 ---
