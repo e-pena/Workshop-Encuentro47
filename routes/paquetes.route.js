@@ -1,5 +1,6 @@
 const paquetesService = require('../services/paquetes.services');
 const dataStore = require('../db/datastore');
+const authToken = require('../middlewares/auth.token');
 
 module.exports = function (server) {
 	server.get('/paquetes', (req, res) => {
@@ -17,13 +18,23 @@ module.exports = function (server) {
 		}
 	});
 
-	server.post('/paquetes', (req, res) => {
+	server.post('/paquetes', authToken.verificarTokenAdmin, (req, res) => {
 		let paqueteNuevo = req.body;
 		try {
 			let paquete = dataStore.crearNuevoPaquete(paqueteNuevo);
 			res.status(201).json(paquete);
 		} catch (err) {
 			res.status(409).json({ Error: err.message });
+		}
+	});
+
+	server.delete('/paquetes/:id', authToken.verificarTokenAdmin, (req, res) => {
+		let idPaqueteABorrar = req.params.id;
+		try {
+			dataStore.borrarPaquetePorId(idPaqueteABorrar);
+			res.status(200).send('Paquete borrado con éxito');
+		} catch (error) {
+			res.status(404).json({ Error: err.message });
 		}
 	});
 };

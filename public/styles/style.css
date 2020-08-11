@@ -1,0 +1,25 @@
+body {
+	margin: 1em;
+}
+
+.titulo-pagina {
+	font-size: 3em;
+	text-align: center;
+}
+
+#header {
+	margin-bottom: 2em;
+}
+
+#btn-mis-paquetes {
+	margin-top: 1em;
+}
+
+img {
+	height: 20em;
+	width: 10em;
+}
+
+.oculto {
+	display: none;
+}

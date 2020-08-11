@@ -1,4 +1,5 @@
 const dataStore = require('../db/datastore');
+const datastore = require('../db/datastore');
 
 function getPaquetes() {
 	return dataStore.paquetes;
@@ -14,7 +15,11 @@ function getPaquetePorId(id) {
 }
 
 function getPaquetesComprados(paquetesDeUsuario) {
-	let paquetesComprados = dataStore.paquetes.filter((r) => r.id == paquetesDeUsuario);
+	let paquetesComprados = [];
+	paquetesDeUsuario.forEach((element) => {
+		let paqueteComprado = datastore.paquetes.find((r) => r.id == element);
+		paquetesComprados.push(paqueteComprado);
+	});
 	return paquetesComprados;
 }
 

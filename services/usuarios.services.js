@@ -1,4 +1,5 @@
 const dataStore = require('../db/datastore');
+const bcrypt = require('bcrypt');
 
 function getUsuarios() {
 	return dataStore.usuarios;

@@ -3,6 +3,7 @@
 const express = require('express');
 const paquetesRoute = require('./routes/paquetes.route');
 const usuariosRoute = require('./routes/usuarios.route');
+const comprasRoute = require('./routes/compras.route');
 
 const server = express();
 
@@ -16,6 +17,7 @@ server.use(express.json());
 
 paquetesRoute(server);
 usuariosRoute(server);
+comprasRoute(server);
 
 // MANEJO DE ERRORES
 
