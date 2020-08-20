@@ -29,7 +29,7 @@ let token = `Bearer ${localStorage.getItem('token')}`;
 
 function logIn(usuario) {
 	try {
-		fetch('http://127.0.0.1:3000/usuarios/login/', {
+		fetch('/usuarios/login/', {
 			method: 'POST',
 			body: JSON.stringify(usuario),
 			headers: { 'Content-Type': 'application/json' },
@@ -77,7 +77,7 @@ loginBtn.addEventListener('click', (e) => {
 
 function cargarPaquetesDisponibles() {
 	try {
-		const response = fetch('http://127.0.0.1:3000/paquetes/')
+		const response = fetch('/paquetes/')
 			.then((response) => {
 				return response.json();
 			})
@@ -103,7 +103,7 @@ function cargarPaquetesDisponibles() {
 
 function cargarUsuariosRegistrados() {
 	try {
-		const response = fetch('http://127.0.0.1:3000/usuarios/')
+		const response = fetch('/usuarios/')
 			.then((response) => {
 				return response.json();
 			})
@@ -129,7 +129,7 @@ function cargarUsuariosRegistrados() {
 
 function cargarVentas() {
 	try {
-		const response = fetch('http://127.0.0.1:3000/compras/')
+		const response = fetch('/compras/')
 			.then((response) => {
 				return response.json();
 			})
@@ -160,7 +160,7 @@ function cargarVentas() {
 
 function crearNuevoPaquete(paquete) {
 	try {
-		fetch('http://127.0.0.1:3000/paquetes/', {
+		fetch('/paquetes/', {
 			method: 'POST',
 			body: JSON.stringify(paquete),
 			headers: { 'Content-Type': 'application/json', Authorization: token },
@@ -178,7 +178,7 @@ function crearNuevoPaquete(paquete) {
 
 function eliminarPaquete(idPaquete) {
 	try {
-		fetch(`http://127.0.0.1:3000/paquetes/${idPaquete}`, {
+		fetch(`/paquetes/${idPaquete}`, {
 			method: 'DELETE',
 			headers: { Authorization: token },
 		})
@@ -202,7 +202,7 @@ btnEliminarPaquete.addEventListener('click', (e) => {
 
 function eliminarUsuario(idUsuario) {
 	try {
-		fetch(`http://127.0.0.1:3000/usuarios/${idUsuario}`, {
+		fetch(`/usuarios/${idUsuario}`, {
 			method: 'DELETE',
 			headers: { Authorization: token },
 		})
@@ -226,7 +226,7 @@ btnEliminarUsuario.addEventListener('click', (e) => {
 
 function eliminarOperacion(idOperacion) {
 	try {
-		fetch(`http://127.0.0.1:3000/compras/${idOperacion}`, {
+		fetch(`/compras/${idOperacion}`, {
 			method: 'DELETE',
 			headers: { Authorization: token },
 		})

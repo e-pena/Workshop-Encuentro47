@@ -33,7 +33,7 @@ let idUsuarioActual;
 
 function cargarPaquetes() {
 	try {
-		const response = fetch('http://127.0.0.1:3000/paquetes/')
+		const response = fetch('/paquetes/')
 			.then((response) => {
 				return response.json();
 			})
@@ -61,7 +61,7 @@ cargarPaquetes();
 
 function logIn(usuario) {
 	try {
-		fetch('http://127.0.0.1:3000/usuarios/login/', {
+		fetch('/usuarios/login/', {
 			method: 'POST',
 			body: JSON.stringify(usuario),
 			headers: { 'Content-Type': 'application/json' },
@@ -101,7 +101,7 @@ function logIn(usuario) {
 
 function signIn(usuario) {
 	try {
-		fetch('http://127.0.0.1:3000/usuarios/', {
+		fetch('/usuarios/', {
 			method: 'POST',
 			body: JSON.stringify(usuario),
 			headers: { 'Content-Type': 'application/json' },
@@ -181,7 +181,7 @@ signinBtn.addEventListener('click', (e) => {
 paquetesBtn.addEventListener('click', (e) => {
 	e.preventDefault();
 	try {
-		const response = fetch(`http://127.0.0.1:3000/usuarios/${idUsuarioActual}/paquetes`)
+		const response = fetch(`/usuarios/${idUsuarioActual}/paquetes`)
 			.then((response) => {
 				return response.json();
 			})
@@ -203,7 +203,7 @@ paquetesBtn.addEventListener('click', (e) => {
 
 function reservarPaquete(ubicacionPaquete) {
 	try {
-		const response = fetch('http://127.0.0.1:3000/paquetes/')
+		const response = fetch('/paquetes/')
 			.then((response) => {
 				return response.json();
 			})
@@ -226,7 +226,7 @@ function reservarPaquete(ubicacionPaquete) {
 
 function comprarPaquete(ubicacionPaquete) {
 	try {
-		const response = fetch('http://127.0.0.1:3000/paquetes/')
+		const response = fetch('/paquetes/')
 			.then((response) => {
 				return response.json();
 			})
@@ -249,7 +249,7 @@ function comprarPaquete(ubicacionPaquete) {
 
 function reservarOComprarPaquete(paquete) {
 	try {
-		fetch('http://127.0.0.1:3000/compras', {
+		fetch('/compras', {
 			method: 'POST',
 			body: JSON.stringify(paquete),
 			headers: { 'Content-Type': 'application/json' },
