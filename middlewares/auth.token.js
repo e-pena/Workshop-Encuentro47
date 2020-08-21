@@ -9,7 +9,7 @@ async function verificarTokenAdmin(req, res, next) {
 				if (error) {
 					return res.status(403).send({ message: 'Sin permisos' });
 				} else {
-					console.log(decoded);
+					console.log(decoded == 1);
 					if (decoded.rol) {
 						next();
 					} else {
