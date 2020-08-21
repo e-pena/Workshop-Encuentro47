@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const claveSecreta = 'ClaveSecreta';
 
-function verificarTokenAdmin(req, res, next) {
+async function verificarTokenAdmin(req, res, next) {
 	if (req.path != '/usuarios/login' && req.path != '/usuarios') {
 		if (req.headers.authorization) {
 			let token = req.headers.authorization.split(' ')[1];
@@ -9,7 +9,8 @@ function verificarTokenAdmin(req, res, next) {
 				if (error) {
 					return res.status(403).send({ message: 'Sin permisos' });
 				} else {
-					if (decoded.roles.length > 1) {
+					console.log(decoded);
+					if (decoded.rol) {
 						next();
 					} else {
 						return res.status(403).send({ message: 'Sin permisos' });
